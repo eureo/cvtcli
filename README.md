@@ -1,7 +1,5 @@
 # Cvtcli
 
-TODO: Write a gem description
-
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -18,12 +16,22 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+class CandidatesController < ApplicationController
+  
+  def update
+    @candidate = current_candidate      
+    if @candidate.update_attributes(params[:candidate])
+      Cvtcli.sync(params[:candidate])
+      redirect_to candidate_path(current_candidate), :notice => t('candidates.flash.updated')
+    else
+      @candidate.languages.build if @candidate.languages.size == 0
+      render :edit
+    end
+  end
 
-## Contributing
+  def delete
 
-1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
+  end
+end
+```
