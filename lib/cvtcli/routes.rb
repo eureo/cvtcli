@@ -38,7 +38,7 @@ module Cvtcli
     end
 
     def base_options
-      options = { host: Cvtcli.configuration.host, port: Cvtcli.configuration.port }
+      options = { host: Cvtcli.configuration.host, port: Cvtcli.configuration.port.to_i }
       options
     end
 
