@@ -17,7 +17,7 @@ module Cvtcli
 
     def call(obj)
       method, url = send("#{endpoint}_endpoint", options[:url_options] || {})
-      puts("API CALL: #{method} #{url}")
+      Cvtcli.debug("API CALL: #{method} #{url}")
       
       while connection_attempts < max_connection_attempts
         sleep_if_retrying
@@ -26,7 +26,7 @@ module Cvtcli
         valid_response_codes = (200..207).to_a
         if valid_response_codes.include?(response.code.to_i)
           if options[:success]
-            puts("CALLING SUCCESS HANDLER: #{options[:success]}")
+            Cvtcli.debug("CALLING SUCCESS HANDLER: #{options[:success]}")
             obj.send(options[:success], response)
           end
           success = true
@@ -44,7 +44,7 @@ module Cvtcli
     def make_call(method, url)
       begin
         @connection_attempts += 1
-        puts("ATTEMPT #{@connection_attempts}")
+        Cvtcli.debug("ATTEMPT #{@connection_attempts}")
         headers =  {
           "AUTHORIZATION" => "Token token=\"#{Cvtcli.configuration.token}\""
         }
@@ -70,7 +70,7 @@ module Cvtcli
     def sleep_if_retrying
       if @connection_attempts > 0
         time = @connection_attempts * 5
-        puts("Sleeping for #{time} before retrying")
+        Cvtcli.debug("Sleeping for #{time} before retrying")
         sleep time
       end
     end

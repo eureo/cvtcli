@@ -11,8 +11,20 @@ module Cvtcli
   class << self
     attr_accessor :configuration
 
+    def log(message)
+      if logger
+        logger.info(LOG_PREFIX + message)
+      else
+        puts(LOG_PREFIX + message)
+      end
+    end
+
     def debug(message)
-      logger.debug(LOG_PREFIX + message) if logger
+      if logger
+        logger.debug(LOG_PREFIX + message)
+      else
+        puts(LOG_PREFIX + message)
+      end
     end
 
     def logger

@@ -23,7 +23,8 @@ module Cvtcli
     end
 
     def handle_failure(response)
-      puts("CANDIDATE API CALL FAILED !!!!!!!!")
+      Cvtcli.debug("CANDIDATE API CALL FAILED : #{message}")
+      @responses << response
     end
 
     def handle_success(response)
