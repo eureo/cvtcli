@@ -34,7 +34,11 @@ module Cvtcli
     protected
 
     def http_scheme
-      URI::HTTP
+      if Cvtcli.configuration.secure
+        URI::HTTPS
+      else
+        URI::HTTP
+      end
     end
 
     def base_options

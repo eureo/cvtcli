@@ -3,6 +3,7 @@ module Cvtcli
 
     attr_accessor :host
     attr_accessor :port
+    attr_accessor :secure
     attr_accessor :token
     attr_accessor :logger
 
